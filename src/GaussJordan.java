@@ -68,10 +68,6 @@ public class GaussJordan {
         throw new Exception("Matrix tidak non-Homogen");
 
       }
-      // else if (isGaussed) {
-      // throw new Exception("Matrix sudah pernah melalui operasi Gauss");
-
-      // }
 
       for (int i = 1; i <= jumlah_iterasi(); i++) {
 
