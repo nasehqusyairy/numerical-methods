@@ -280,30 +280,30 @@ public class GaussJordan {
   }
 
   public static void main(String[] args) {
-    GaussJordan obj = new GaussJordan();
-    // System.out.println(obj.isNonHomogen());
-    System.out.println("# Sebelum operasi:");
-    obj.display();
+    GaussJordan matrix = new GaussJordan();
 
-    obj.gauss();
+    System.out.println("# Sebelum operasi:");
+    matrix.display();
+
+    matrix.gauss();
     System.out.println();
 
     System.out.println("# Sesudah operasi Gauss:");
-    obj.display();
+    matrix.display();
     System.out.println();
 
-    System.out.println("# Determinan : " + obj.determinan());
+    System.out.println("# Determinan : " + matrix.determinan());
     System.out.println();
 
-    obj.jordan();
+    matrix.jordan();
     System.out.println();
 
     System.out.println("# Sesudah operasi Gauss-Jordan:");
-    obj.display();
+    matrix.display();
     System.out.println();
 
-    for (int i = 0; i < obj.length(); i++) {
-      System.out.println("x" + (i + 1) + " = " + obj.subtitusiGauss(i));
+    for (int i = 0; i < matrix.length(); i++) {
+      System.out.println("x" + (i + 1) + " = " + matrix.subtitusiGauss(i));
     }
 
   }
