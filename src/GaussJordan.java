@@ -1,22 +1,27 @@
 public class GaussJordan {
 
-  private boolean isGaussed = false;
-  private boolean isJordaned = false;
+  private boolean isGaussed;
+  private boolean isJordaned;
 
-  private double[][] matrixA = {
-      { 3, -0.1, -0.2 },
-      { 0.1, 7, -0.3 },
-      { 0.3, -0.2, 10 }
-  };
+  private double[][] matrixA;
 
-  private double[][] matrixB = {
-      { 7.85 },
-      { -19.3 },
-      { 71.4 }
-  };
+  private double[][] matrixB;
+
+  public GaussJordan(double[][] a, double[][] b) {
+    matrixA = a.clone();
+    matrixB = b.clone();
+
+    isGaussed = false;
+    isJordaned = false;
+
+  }
 
   public int length() {
     return matrixB.length;
+  }
+
+  public int jumlah_iterasi() {
+    return length() - 1;
   }
 
   public boolean isSquare() {
@@ -65,16 +70,14 @@ public class GaussJordan {
       // }
 
       // diketahui
-      int panjang_matrix = matrixA.length;
-      int jumlah_iterasi = panjang_matrix - 1;
-      double[] k = new double[jumlah_iterasi];
+      double[] k = new double[jumlah_iterasi()];
 
-      for (int i = 1; i <= jumlah_iterasi; i++) {
+      for (int i = 1; i <= jumlah_iterasi(); i++) {
 
         // nilai i untuk index diagonal dikurangi 1 karena dimulai dari nol
         double diagonal = matrixA[i - 1][i - 1];
 
-        int jumlah_baris_yang_akan_terpengaruh = panjang_matrix - i;
+        int jumlah_baris_yang_akan_terpengaruh = length() - i;
 
         // buat nilai k
         for (int m = 0; m < jumlah_baris_yang_akan_terpengaruh; m++) {
@@ -86,7 +89,7 @@ public class GaussJordan {
 
         // matrix a
         // eksekusi kolom
-        for (int l = 0; l < panjang_matrix; l++) {
+        for (int l = 0; l < length(); l++) {
 
           // eksekusi baris
           for (int j = 0; j < jumlah_baris_yang_akan_terpengaruh; j++) {
@@ -121,11 +124,9 @@ public class GaussJordan {
   public void jordan() {
     if (isGaussed) {
       // diketahui
-      int panjang_matrix = matrixA.length;
-      int jumlah_iterasi = panjang_matrix - 1;
-      double[] k = new double[jumlah_iterasi];
+      double[] k = new double[jumlah_iterasi()];
 
-      for (int i = jumlah_iterasi; i >= 1; i--) {
+      for (int i = jumlah_iterasi(); i >= 1; i--) {
 
         int jumlah_baris_yang_akan_terpengaruh = i;
 
@@ -138,7 +139,7 @@ public class GaussJordan {
 
         // matrix a
         // eksekusi kolom
-        for (int l = jumlah_iterasi; l >= 0; l--) {
+        for (int l = jumlah_iterasi(); l >= 0; l--) {
 
           // eksekusi baris
           for (int j = 0; j < jumlah_baris_yang_akan_terpengaruh; j++) {
@@ -280,7 +281,20 @@ public class GaussJordan {
   }
 
   public static void main(String[] args) {
-    GaussJordan matrix = new GaussJordan();
+
+    double[][] matrixA = {
+        { 3, -0.1, -0.2 },
+        { 0.1, 7, -0.3 },
+        { 0.3, -0.2, 10 }
+    };
+
+    double[][] matrixB = {
+        { 7.85 },
+        { -19.3 },
+        { 71.4 }
+    };
+
+    GaussJordan matrix = new GaussJordan(matrixA, matrixB);
 
     System.out.println("# Sebelum operasi:");
     matrix.display();
