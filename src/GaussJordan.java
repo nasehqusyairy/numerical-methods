@@ -1,7 +1,7 @@
 public class GaussJordan {
 
-  public boolean isGaussed = false;
-  public boolean isJordaned = false;
+  private boolean isGaussed = false;
+  private boolean isJordaned = false;
 
   private double[][] matrixA = {
       { 3, -0.1, -0.2 },
