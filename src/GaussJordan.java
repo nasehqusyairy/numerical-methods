@@ -58,16 +58,7 @@ public class GaussJordan {
      * 
      */
 
-    try {
-
-      // cek persyaratan
-      if (!isSquare()) {
-        throw new Exception("Matrix tidak persegi");
-
-      } else if (!isNonHomogen()) {
-        throw new Exception("Matrix tidak non-Homogen");
-
-      }
+    if (isSquare() && isNonHomogen()) {
 
       for (int i = 1; i <= jumlah_iterasi(); i++) {
 
@@ -110,10 +101,6 @@ public class GaussJordan {
       }
 
       isGaussed = true;
-
-      // jika tidak memenuhi persyaratan, jalankan catch
-    } catch (Exception e) {
-      System.err.println("\nError:\n" + e.getMessage() + "operasi Gauss tidak dapat dilakukan");
     }
 
   }
