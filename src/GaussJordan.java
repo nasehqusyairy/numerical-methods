@@ -1,4 +1,8 @@
 public class GaussJordan {
+
+  public boolean isGaussed = false;
+  public boolean isJordaned = false;
+
   private double[][] matrixA = {
       { 3, -0.1, -0.2 },
       { 0.1, 7, -0.3 },
@@ -29,7 +33,6 @@ public class GaussJordan {
   }
 
   public void gauss() {
-
     /*
      * Berdasarkan pengamatan :
      * 
@@ -56,6 +59,10 @@ public class GaussJordan {
         throw new Exception("Matrix tidak non-Homogen");
 
       }
+      // else if (isGaussed) {
+      // throw new Exception("Matrix sudah pernah melalui operasi Gauss");
+
+      // }
 
       // diketahui
       int panjang_matrix = matrixA.length;
@@ -102,11 +109,74 @@ public class GaussJordan {
 
       }
 
+      isGaussed = true;
+
       // jika tidak memenuhi persyaratan, jalankan catch
     } catch (Exception e) {
-      System.err.println("\nError:\n" + e.getMessage() + "operasi gaus tidak dapat dilakukan");
+      System.err.println("\nError:\n" + e.getMessage() + "operasi Gauss tidak dapat dilakukan");
     }
 
+  }
+
+  public void jordan() {
+    if (isGaussed) {
+      // diketahui
+      int panjang_matrix = matrixA.length;
+      int jumlah_iterasi = panjang_matrix - 1;
+      double[] k = new double[jumlah_iterasi];
+
+      for (int i = jumlah_iterasi; i >= 1; i--) {
+
+        int jumlah_baris_yang_akan_terpengaruh = i;
+
+        // buat nilai k
+        for (int m = 0; m < jumlah_baris_yang_akan_terpengaruh; m++) {
+
+          k[m] = matrixA[m][i] / matrixA[m + 1][i];
+
+        }
+
+        // matrix a
+        // eksekusi kolom
+        for (int l = jumlah_iterasi; l >= 0; l--) {
+
+          // eksekusi baris
+          for (int j = 0; j < jumlah_baris_yang_akan_terpengaruh; j++) {
+
+            matrixA[j][l] -= k[j] * matrixA[j + 1][l];
+
+          }
+
+        }
+
+        // matrix b
+        // eksekusi baris
+        for (int j = 0; j < jumlah_baris_yang_akan_terpengaruh; j++) {
+
+          matrixB[j][0] -= k[j] * matrixB[j + 1][0];
+
+        }
+
+      }
+      sederhanakanJordan();
+      isJordaned = true;
+    } else {
+      gauss();
+      jordan();
+    }
+  }
+
+  private void sederhanakanJordan() {
+    for (int i = 0; i < matrixA.length; i++) {
+      double diagonal = matrixA[i][i];
+
+      for (int j = 0; j < matrixA.length; j++) {
+        matrixA[i][j] *= 1 / diagonal;
+      }
+
+      matrixB[i][0] *= 1 / diagonal;
+
+    }
   }
 
   // method untuk mencari kofaktor
@@ -165,6 +235,10 @@ public class GaussJordan {
 
   public double subtitusiGauss(int i) {
 
+    if (isJordaned) {
+      return matrixB[i][0];
+    }
+
     if (determinan() == 0) {
       System.err.println("\nError : Determinan matrix sama dengan nol");
       return 0;
@@ -214,11 +288,18 @@ public class GaussJordan {
     obj.gauss();
     System.out.println();
 
-    System.out.println("# Sesudah operasi:");
+    System.out.println("# Sesudah operasi Gauss:");
     obj.display();
     System.out.println();
 
-    System.out.println("# Determinan  : " + obj.determinan());
+    System.out.println("# Determinan : " + obj.determinan());
+    System.out.println();
+
+    obj.jordan();
+    System.out.println();
+
+    System.out.println("# Sesudah operasi Gauss-Jordan:");
+    obj.display();
     System.out.println();
 
     for (int i = 0; i < obj.length(); i++) {
