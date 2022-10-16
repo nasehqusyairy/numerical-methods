@@ -7,6 +7,8 @@ public class GaussJordan {
 
   private double[][] matrixB;
 
+  private double[] k;
+
   public GaussJordan(double[][] a, double[][] b) {
     matrixA = a.clone();
     matrixB = b.clone();
@@ -14,13 +16,15 @@ public class GaussJordan {
     isGaussed = false;
     isJordaned = false;
 
+    k = new double[jumlah_iterasi()];
+
   }
 
   public int length() {
     return matrixB.length;
   }
 
-  public int jumlah_iterasi() {
+  private int jumlah_iterasi() {
     return length() - 1;
   }
 
@@ -68,9 +72,6 @@ public class GaussJordan {
       // throw new Exception("Matrix sudah pernah melalui operasi Gauss");
 
       // }
-
-      // diketahui
-      double[] k = new double[jumlah_iterasi()];
 
       for (int i = 1; i <= jumlah_iterasi(); i++) {
 
@@ -123,8 +124,6 @@ public class GaussJordan {
 
   public void jordan() {
     if (isGaussed) {
-      // diketahui
-      double[] k = new double[jumlah_iterasi()];
 
       for (int i = jumlah_iterasi(); i >= 1; i--) {
 
