@@ -101,6 +101,8 @@ public class GaussJordan {
       }
 
       isGaussed = true;
+    } else {
+      System.out.println("Persyaratan matrix tidak terpenuhi!");
     }
 
   }
@@ -144,8 +146,7 @@ public class GaussJordan {
       sederhanakanJordan();
       isJordaned = true;
     } else {
-      gauss();
-      jordan();
+      System.out.println("Jalankan Gauss terlebih dahulu");
     }
   }
 
